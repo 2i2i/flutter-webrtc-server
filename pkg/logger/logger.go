@@ -1,8 +1,9 @@
 package logger
 
 import (
-	"os"
-	"time"
+	"io/ioutil"
+	// "os"
+	// "time"
 
 	"github.com/rs/zerolog"
 )
@@ -33,8 +34,9 @@ const (
 
 func init() {
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
-	output := zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
-	log = zerolog.New(output).With().Timestamp().Logger()
+	// output := zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
+	file, _ := ioutil.TempFile("./logs","a")
+	log = zerolog.New(file).With().Timestamp().Logger()
 	SetLevel(DebugLevel)
 }
 
